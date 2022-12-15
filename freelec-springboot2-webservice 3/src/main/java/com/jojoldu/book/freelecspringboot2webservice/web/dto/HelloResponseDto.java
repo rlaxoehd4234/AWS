@@ -1,0 +1,14 @@
+package com.jojoldu.book.freelecspringboot2webservice.web.dto;
+
+import lombok.Getter;
+import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Required;
+
+@Getter
+@RequiredArgsConstructor
+public class HelloResponseDto {
+
+    private final String name;
+    private final int amount;
+
+}
