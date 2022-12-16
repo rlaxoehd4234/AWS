@@ -1,5 +1,6 @@
 package com.jojoldu.book.freelecspringboot2webservice.domain.posts;
 
+import com.jojoldu.book.freelecspringboot2webservice.web.dto.PostsUpdateRequestDto;
 import org.junit.After;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -45,5 +46,8 @@ public class PostsRepositoryTest {
         assertEquals(posts.getTitle(), title);
         assertEquals(posts.getContent(), content);
     }
+
+
+
 
 }

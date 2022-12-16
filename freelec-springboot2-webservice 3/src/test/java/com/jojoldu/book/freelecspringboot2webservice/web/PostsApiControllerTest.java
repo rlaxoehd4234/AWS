@@ -3,6 +3,7 @@ package com.jojoldu.book.freelecspringboot2webservice.web;
 import com.jojoldu.book.freelecspringboot2webservice.domain.posts.Posts;
 import com.jojoldu.book.freelecspringboot2webservice.domain.posts.PostsRepository;
 import com.jojoldu.book.freelecspringboot2webservice.web.dto.PostsSaveRequestDto;
+import com.jojoldu.book.freelecspringboot2webservice.web.dto.PostsUpdateRequestDto;
 import org.junit.After;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -10,6 +11,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.web.client.TestRestTemplate;
 import org.springframework.boot.test.web.server.LocalServerPort;
+import org.springframework.http.HttpEntity;
+import org.springframework.http.HttpMethod;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.test.context.junit4.SpringRunner;
@@ -63,6 +66,46 @@ public class PostsApiControllerTest {
         List<Posts> all = postsRepository.findAll();
         assertEquals(all.get(0).getTitle(),title);
         assertEquals(all.get(0).getContent() , content);
+
+    }
+
+    @Test
+    public void Posts_수정된다() throws Exception {
+        //given
+        Posts savedPosts = postsRepository.save(Posts.builder()
+                .title("title")
+                .content("content")
+                .author("author")
+                .build());
+
+
+        Long updateId = savedPosts.getId();
+        String expectedTitle = "title2";
+        String expectedContent = "content2";
+
+        PostsUpdateRequestDto requestDto = PostsUpdateRequestDto.builder()
+                .title(expectedTitle)
+                .content(expectedContent)
+                .build();
+
+        String url = "http://localhost:" + port + "/api/v1/posts/" +updateId;
+
+        HttpEntity<PostsUpdateRequestDto> requestEntity = new HttpEntity<>(requestDto);
+
+        //when
+        ResponseEntity<Object> responseEntity = restTemplate.
+                exchange(url , HttpMethod.PUT,
+                        requestEntity, Object.class);
+
+        //then
+        assertEquals(responseEntity.getStatusCode() , HttpStatus.OK); //Http 메서드 확인
+
+        List<Posts> all = postsRepository.findAll();
+
+        assertEquals(all.get(0).getTitle(), expectedTitle);
+        assertEquals(all.get(0).getContent() , expectedContent);
+
+
 
     }
 }
