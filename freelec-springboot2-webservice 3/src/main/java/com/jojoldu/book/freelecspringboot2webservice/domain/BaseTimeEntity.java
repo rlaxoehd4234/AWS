@@ -11,8 +11,8 @@ import java.time.LocalDateTime;
 
 @Getter
 @MappedSuperclass
-@EntityListeners(AuditingEntityListener.class)
-public class BaseTimeEntity {
+@EntityListeners(AuditingEntityListener.class) // 게시물 등록이나 여러가지 시간들을 이렇게 표현한다.
+ public class BaseTimeEntity {
     @CreatedDate
     private LocalDateTime createdDate;
 

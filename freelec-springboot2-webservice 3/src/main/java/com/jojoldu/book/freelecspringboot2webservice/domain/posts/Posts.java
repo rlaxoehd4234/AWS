@@ -14,7 +14,7 @@ public class Posts extends BaseTimeEntity{
 
     @Id
     @GeneratedValue( strategy = GenerationType.IDENTITY) // auto_increment 가 가능하다 스프링 2.0 에서
-    private Long id;
+    private Long id; // strategy = GenerationType.IDENTITY 를 선언해주면 BigInt 가 된다.
 
     @Column(length = 500, nullable = false)
     private String title;
