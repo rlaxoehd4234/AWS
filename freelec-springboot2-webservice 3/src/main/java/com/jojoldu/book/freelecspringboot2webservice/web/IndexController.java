@@ -10,4 +10,10 @@ public class IndexController {
     public String home() {
         return "index";
     }
+
+
+    @GetMapping("/posts/save")
+    public String postsSave(){
+        return "posts-save";
+    }
 }
